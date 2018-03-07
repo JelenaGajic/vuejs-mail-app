@@ -1,5 +1,5 @@
 <template>
-    <h1>Important</h1>
+    <h1>Importants</h1>
 </template>
 
 <script>
