@@ -1,7 +1,10 @@
 <template>
     <table v-if="messages.length > 0" class="table table-inbox table-hover">
         <tbody>
-            <tr v-for="(message, ind) in messages" :key="ind" :class="{ unread: typeof message.isRead !== 'undefined' && !message.isRead }">
+            <tr v-for="(message, ind) in messages"
+                :key="ind"
+                :class="{ unread: typeof message.isRead !== 'undefined' && !message.isRead }"
+                @click="openMessage(message)">
                 <td><input type="checkbox"></td>
                 <td>
                     <a href="#"
@@ -22,11 +25,24 @@
 </template>
 
 <script>
+    import { eventBus } from './main';
+
     export default {
         props: {
             messages: {
                 type: Array,
                 required: true
+            }
+        },
+        methods: {
+            openMessage (message) {
+                eventBus.$emit('changeView', {
+                    tag: 'app-view-message',
+                    title: message.subject,
+                    data: {
+                        message: message
+                    }
+                })
             }
         }
     }
